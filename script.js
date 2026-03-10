@@ -153,7 +153,7 @@
     __app.anchorsReady = true;
 
     var pathname = window.location.pathname;
-    var isHome = pathname === '/' || //index.html$/.test(pathname);
+    var isHome = pathname === '/' || /index\.html$/.test(pathname);
 
     var links = document.querySelectorAll('a[href]');
 
@@ -205,14 +205,14 @@
     if (!navLinks.length) return;
 
     var pathname = window.location.pathname;
-    var normalizedPath = pathname.replace(//index.html$/, '/').replace(//$/, '') || '/';
+    var normalizedPath = pathname.replace(/index\.html$/, '/').replace(/\/$/, '') || '/';
 
     for (var i = 0; i < navLinks.length; i++) {
       var link = navLinks[i];
       var href = link.getAttribute('href');
       if (!href || href.charAt(0) === '#') continue;
 
-      var normalizedHref = href.replace(//index.html$/, '/').replace(//$/, '') || '/';
+      var normalizedHref = href.replace(/index\.html$/, '/').replace(/\/$/, '') || '/';
       var isMatch = normalizedPath === normalizedHref;
 
       if (
@@ -309,14 +309,14 @@
 
     function parseNumber(el) {
       var text = el.textContent.trim();
-      var match = text.match(/[d,]+(.d+)?/);
+      var match = text.match(/[\d,]+(\.\d+)?/);
       if (!match) return null;
       return parseFloat(match[0].replace(/,/g, ''));
     }
 
     function getSuffix(el) {
       var text = el.textContent.trim();
-      return text.replace(/[d,.]+/, '').trim();
+      return text.replace(/[\d,.]+/, '').trim();
     }
 
     function animateCount(el, target, suffix) {
@@ -409,13 +409,13 @@
   __app.notify = showNotification;
 
   function validateEmail(val) {
-    var re = /^[^s@]+@[^s@]+.[^s@]+$/;
+    var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(val);
   }
 
   function validatePhone(val) {
     if (!val || val.trim() === '') return true;
-    var re = /^[-ds+()]{7,20}$/;
+    var re = /^[-\d\s+()]{7,20}$/;
     return re.test(val.trim());
   }
 
